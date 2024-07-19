@@ -1,15 +1,10 @@
 import axios from "axios";
+import {BaseService} from "./BaseService";
 
-export class ReportService {
-    static baseURL;
+export class ReportService extends BaseService {
 
-    constructor(accessToken) {
-        this.accessToken = accessToken;
-        this.baseURL = "https://localhost:3306/";
-    }
-
-    UpdateToken(newToken) {
-        this.accessToken = newToken;
+    constructor() {
+        super();
     }
 
     async GetReportsOfUser(id, pageNumber = 1, pageSize = 10) {
@@ -18,11 +13,7 @@ export class ReportService {
                 pageNumber,
                 pageSize
             },
-            headers: {
-                Accept: 'text/plain',
-                contentType: 'application/json',
-                authorization: 'Bearer ' + this.accessToken
-            }
+            headers: this.baseHeaders
         }).catch(function (error) {
             return error
         });
@@ -30,11 +21,7 @@ export class ReportService {
 
     async GetReportById(id) {
         return await axios.get(this.baseURL + 'api/v1/Report/' + id, {
-            headers: {
-                Accept: 'text/plain',
-                contentType: 'application/json',
-                authorization: 'Bearer ' + this.accessToken
-            }
+            headers: this.baseHeaders
         }).catch(function (error) {
             return error
         });
@@ -42,11 +29,7 @@ export class ReportService {
 
     async DeleteReport(id) {
         return await axios.delete(this.baseURL + 'api/v1/Report/' + id, {
-            headers: {
-                Accept: 'text/plain',
-                contentType: 'application/json',
-                authorization: 'Bearer ' + this.accessToken
-            }
+            headers: this.baseHeaders
         }).catch(function (error) {
             return error
         })
@@ -59,11 +42,7 @@ export class ReportService {
                 description,
                 userId
             },
-            headers: {
-                Accept: 'text/plain',
-                contentType: 'application/json',
-                authorization: 'Bearer ' + this.accessToken
-            }
+            headers: this.baseHeaders
         }).catch(function (error) {
             return error
         })
@@ -72,11 +51,7 @@ export class ReportService {
     async UpdateReport(id, name, description) {
         return await axios.put(this.baseURL + 'api/v1/Report/', {
             data: {id, name, description},
-            headers: {
-                Accept: 'text/plain',
-                contentType: 'application/json',
-                authorization: 'Bearer ' + this.accessToken
-            }
+            headers: this.baseHeaders
         }).catch(function (error) {
             return error
         })

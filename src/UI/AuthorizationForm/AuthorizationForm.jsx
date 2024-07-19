@@ -1,8 +1,8 @@
 import React, {useContext, useRef, useState} from 'react';
 import './AuthorizationForm.css'
-import {AuthContext} from "../context";
+import {AuthContext} from "../../context";
 import {useNavigate} from "react-router-dom";
-import {AuthService} from "../API/AuthService";
+import {AuthService} from "../../API/AuthService";
 import axios from "axios";
 
 const AuthorizationForm = () => {
