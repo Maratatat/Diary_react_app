@@ -5,7 +5,7 @@
     display: block;
     margin: 15px auto;
     position: relative;
-    color: #FFF;
+    color: black;
     box-sizing: border-box;
     animation: animloader 1s linear infinite alternate;
 }
