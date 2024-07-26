@@ -1,0 +1,61 @@
+.button {
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+    background: #f4a62a;
+}
+
+.button, .button span {
+    transition: 200ms;
+}
+
+.button .text {
+    transform: translateX(35px);
+    color: white;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.button .icon {
+    position: absolute;
+    border-left: 1px solid #dc9200;
+    transform: translateX(105px);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: medium;
+}
+
+.button svg {
+    width: 15px;
+    fill: #eee;
+}
+
+.button:hover {
+    background: rgba(244, 166, 42, 0.91);
+}
+
+.button:hover .text {
+    color: transparent;
+}
+
+.button:hover .icon {
+    width: 150px;
+    border-left: none;
+    transform: translateX(0);
+}
+
+.button:focus {
+    outline: none;
+}
+
+.button:active .icon svg {
+    transform: scale(0.8);
+}

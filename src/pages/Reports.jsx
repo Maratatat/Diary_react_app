@@ -5,6 +5,7 @@ import Loader from "../UI/Loader/Loader";
 import {UpdateTokens} from "../API/UpdateTokens";
 import {useNavigate} from "react-router-dom";
 import {AuthContext} from "../context";
+import ReportsList from "../UI/ReportsList/ReportsList";
 
 const Reports = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext);
@@ -40,15 +41,8 @@ const Reports = () => {
             {reportsError && <h2 style={{textAlign: 'center'}}>An error occurred: {reportsError}</h2>}
             {isReportsLoading ?
                 <Loader/> :
-                reports.map(report =>
-                    <div key={report.id}>
-                        <h3>{report.name}</h3>
-                        <p>{report.description}</p>
-                        <strong>Created at: {report.dateCreated}</strong>
-                        <br/>
-                        <strong>Id: {report.id}</strong>
-                    </div>
-                )}
+                <ReportsList reports={reports}/>
+            }
         </div>
     );
 };
