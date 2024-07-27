@@ -1,16 +1,18 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useFetching} from "../Hooks/useFetching";
 import {ReportService} from "../API/ReportService";
-import Loader from "../UI/Loader/Loader";
 import {UpdateTokens} from "../API/UpdateTokens";
 import {useNavigate} from "react-router-dom";
 import {AuthContext} from "../context";
-import ReportsList from "../UI/ReportsList/ReportsList";
+import ReportsWithSearchAndCreate from "../UI/ReportsWithSearchAndCreate/ReportsWithSearchAndCreate";
+import {useSearchedReports} from "../Hooks/UseSearchedReports";
 
 const Reports = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext);
     const navigate = useNavigate();
     const [reports, setReports] = React.useState([]);
+    const [query, setQuery] = useState('')
+    const searchedReports = useSearchedReports(reports, query)
     const accessToken = localStorage.getItem("accessToken");
     const reportService = new ReportService(accessToken);
     const [fetchReports, isReportsLoading, reportsError] = useFetching(async (pageNumber, pageSize) => {
@@ -39,10 +41,8 @@ const Reports = () => {
         <div>
             <h1 style={{textAlign: 'center', marginBottom: '50px'}}>Your reports</h1>
             {reportsError && <h2 style={{textAlign: 'center'}}>An error occurred: {reportsError}</h2>}
-            {isReportsLoading ?
-                <Loader/> :
-                <ReportsList reports={reports}/>
-            }
+            <ReportsWithSearchAndCreate isReportsLoading={isReportsLoading} reports={searchedReports} query={query}
+                                        setQuery={setQuery}/>
         </div>
     );
 };

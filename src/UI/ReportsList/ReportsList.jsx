@@ -12,7 +12,7 @@ const ReportsList = ({reports}) => {
     return (
         <div className={classes.main_div}>
             {
-                reports.map(report => <Report report={report}/>)
+                reports.map(report => <Report report={report} key={report.id}/>)
             }
         </div>
     );

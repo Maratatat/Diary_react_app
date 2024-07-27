@@ -5,7 +5,7 @@ import DeleteButton from "../DeleteButton/DeleteButton";
 
 const Report = ({report}) => {
     return (
-        <div key={report.id} className={classes.main_div}>
+        <div className={classes.main_div}>
             <div className={classes.upper_data_div}>
                 <h3>{report.name}</h3>
                 <div className={classes.button_div}>
