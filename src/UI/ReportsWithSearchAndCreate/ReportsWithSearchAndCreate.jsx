@@ -4,7 +4,7 @@ import CreateButton from "../CreateButton/CreateButton";
 import ReportsList from "../ReportsList/ReportsList";
 import classes from "./ReportsWithSearchAndCreate.module.css";
 
-const ReportsWithSearchAndCreate = ({reports, query, setQuery}) => {
+const ReportsWithSearchAndCreate = ({reports, query, setQuery, reportService, deleteReport}) => {
     return (
         <div>
 
@@ -13,7 +13,7 @@ const ReportsWithSearchAndCreate = ({reports, query, setQuery}) => {
                     <SearchBox query={query} setQuery={setQuery}/>
                     <CreateButton/>
                 </div>
-                <ReportsList reports={reports}/>
+                <ReportsList reports={reports} reportService={reportService} deleteReport={deleteReport}/>
             </div>
         </div>
     );

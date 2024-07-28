@@ -43,12 +43,21 @@ const Reports = () => {
 
     }
 
+    const deleteReport = async (id) => {
+        const response = await reportService.DeleteReport(id);
+        if (response.code === "ERR_BAD_REQUEST") {
+            await UpdateTokens(setIsAuth, navigate, deleteReport, reportService, id)
+        } else {
+            setReports(reports.filter(report => report.id !== id))
+        }
+    }
+
     return (
         <div>
             <h1 style={{textAlign: 'center', marginBottom: '50px'}}>Your reports</h1>
             {reportsError && <h2 style={{textAlign: 'center'}}>An error occurred: {reportsError}</h2>}
             <ReportsWithSearchAndCreate isReportsLoading={isReportsLoading} reports={searchedReports} query={query}
-                                        setQuery={setQuery}/>
+                                        setQuery={setQuery} reportService={reportService} deleteReport={deleteReport}/>
             <div ref={lastElement} style={{height: '20px'}}></div>
             {isReportsLoading &&
                 <Loader/>}
