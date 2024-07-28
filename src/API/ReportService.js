@@ -37,20 +37,23 @@ export class ReportService extends BaseService {
 
     async CreateReport(name, description, userId) {
         return await axios.post(this.baseURL + 'api/v1/Report/', {
-            data: {
-                name,
-                description,
-                userId
-            },
+            name: name,
+            description: description,
+            userId: userId
+        }, {
             headers: this.baseHeaders
-        }).catch(function (error) {
-            return error
         })
+            .catch(function (error) {
+                return error
+            })
     }
 
     async UpdateReport(id, name, description) {
         return await axios.put(this.baseURL + 'api/v1/Report/', {
-            data: {id, name, description},
+            id: id,
+            name: name,
+            description: description,
+        }, {
             headers: this.baseHeaders
         }).catch(function (error) {
             return error

@@ -5,7 +5,7 @@ export class BaseService {
         this.baseHeaders = {
             Accept: 'text/plain',
             contentType: 'application/json',
-            authorization: 'Bearer ' + this.accessToken
+            Authorization: 'Bearer ' + this.accessToken
         };
     }
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from './DeleteButton.module.css'
 
-const DeleteButton = ({onClick}) => {
+const DeleteButton = ({deleteReport}) => {
     return (
-        <button onClick={onClick} className={classes.button + " noselect"}><span
+        <button onClick={deleteReport} className={classes.button + " noselect"}><span
             className={classes.text}>Delete</span><span
             className={classes.icon}><svg
             xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path

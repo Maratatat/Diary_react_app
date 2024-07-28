@@ -1,9 +1,8 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import {useFetching} from "../Hooks/useFetching";
-import {ReportService} from "../API/ReportService";
 import {UpdateTokens} from "../API/UpdateTokens";
 import {useNavigate} from "react-router-dom";
-import {AuthContext} from "../context";
+import {AuthContext, ReportServiceContext} from "../context";
 import ReportsWithSearchAndCreate from "../UI/ReportsWithSearchAndCreate/ReportsWithSearchAndCreate";
 import {useSearchedReports} from "../Hooks/UseSearchedReports";
 import {useObserver} from "../Hooks/UseObserver";
@@ -15,8 +14,7 @@ const Reports = () => {
     const [reports, setReports] = React.useState([]);
     const [query, setQuery] = useState('')
     const searchedReports = useSearchedReports(reports, query)
-    const accessToken = localStorage.getItem("accessToken");
-    const reportService = new ReportService(accessToken);
+    const reportService = useContext(ReportServiceContext)
     const [fetchReports, isReportsLoading, reportsError] = useFetching(async (pageNumber, pageSize) => {
         await getReports(pageNumber, pageSize)
     })
@@ -30,7 +28,7 @@ const Reports = () => {
     }, [pageNumber, pageSize])
 
     useObserver(lastElement, pageNumber < Math.ceil(totalPages / pageSize), isReportsLoading, () => setPageNumber(pageNumber + 1))
-    
+
     const getReports = async (pageNumber, pageSize) => {
         const userId = localStorage.getItem("userId");
         const response = await reportService.GetReportsOfUser(userId, pageNumber, pageSize)
@@ -51,13 +49,16 @@ const Reports = () => {
             setReports(reports.filter(report => report.id !== id))
         }
     }
-
+    const editReport = (id) => {
+        navigate("/reports/" + id)
+    }
     return (
         <div>
             <h1 style={{textAlign: 'center', marginBottom: '50px'}}>Your reports</h1>
             {reportsError && <h2 style={{textAlign: 'center'}}>An error occurred: {reportsError}</h2>}
             <ReportsWithSearchAndCreate isReportsLoading={isReportsLoading} reports={searchedReports} query={query}
-                                        setQuery={setQuery} reportService={reportService} deleteReport={deleteReport}/>
+                                        setQuery={setQuery} reportService={reportService} deleteReport={deleteReport}
+                                        editReport={editReport}/>
             <div ref={lastElement} style={{height: '20px'}}></div>
             {isReportsLoading &&
                 <Loader/>}

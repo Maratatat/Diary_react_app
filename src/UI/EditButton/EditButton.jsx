@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from './EditButton.module.css'
 
-const DeleteButton = () => {
+const EditButton = ({editReport}) => {
     return (
-        <button className={classes.button + " noselect"}><span className={classes.text}>Edit</span><span
+        <button onClick={editReport} className={classes.button + " noselect"}><span className={classes.text}>Edit</span><span
             className={classes.icon}><svg
             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
             width="24px" height="24px">  <path
@@ -12,4 +12,4 @@ const DeleteButton = () => {
     );
 };
 
-export default DeleteButton;
+export default EditButton;
