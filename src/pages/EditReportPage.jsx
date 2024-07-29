@@ -11,7 +11,7 @@ const EditReportPage = () => {
     const params = useParams();
     const reportService = useContext(ReportServiceContext);
     const [fetchReport, isReportLoading, reportError] = useFetching(async () => {
-
+        await getReport()
     })
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
@@ -39,12 +39,13 @@ const EditReportPage = () => {
     }
 
     useEffect(() => {
-        getReport()
+        fetchReport()
     }, []);
 
     return (
         <EditReportComponent name={name} description={description} setName={setName} setDescription={setDescription}
-                             dateLastEdited={dateLastEdited} updateReport={updateReport}/>
+                             dateLastEdited={dateLastEdited} updateReport={updateReport}
+                             isReportLoading={isReportLoading} reportError={reportError}/>
     );
 };
 
