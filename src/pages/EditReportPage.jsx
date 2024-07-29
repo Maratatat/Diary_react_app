@@ -29,8 +29,7 @@ const EditReportPage = () => {
     }
 
     const updateReport = async (name, description) => {
-        const userId = localStorage.getItem("userId")
-        const response = await reportService.UpdateReport(userId, name, description)
+        const response = await reportService.UpdateReport(params.id, name, description)
         if (response.code === "ERR_BAD_REQUEST") {
             await UpdateTokens(setIsAuth, navigate, updateReport, reportService, name, description)
         } else {
