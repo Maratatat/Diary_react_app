@@ -25,7 +25,6 @@ export default NiceModal.create(() => {
         const response = await reportService.CreateReport(newReport.name, newReport.description, userId);
         await CheckIsError(response, setIsAuth, navigate, createReport, () => {
             modal.resolve(response.data.data);
-            modal.hide();
         }, reportService, newReport)
     })
 
@@ -39,7 +38,6 @@ export default NiceModal.create(() => {
         form.validateFields().then(async () => {
             const newReport = {...form.getFieldsValue()};
             await createReport(newReport);
-            modal.resolve(newReport);
             await modal.hide();
         }).catch(() => {
         });
