@@ -1,12 +1,11 @@
-import {useCallback, useContext, useEffect} from 'react';
+import React, {useCallback, useContext, useEffect} from 'react';
 import {Form, Modal} from 'antd';
 import FormBuilder from 'antd-form-builder';
-import NiceModal, {useModal, antdModal} from '@ebay/nice-modal-react';
-import {UpdateTokens} from "../../API/UpdateTokens";
+import NiceModal, {antdModal, useModal} from '@ebay/nice-modal-react';
 import {AuthContext, ReportServiceContext} from "../../context";
 import {useFetching} from "../../Hooks/useFetching";
-import React from "react";
 import {useNavigate} from "react-router-dom";
+import {CheckIsError} from "../../Utils/CheckIsError";
 
 
 export default NiceModal.create(() => {
@@ -24,12 +23,10 @@ export default NiceModal.create(() => {
     const [createReport, isReportCreating, createError] = useFetching(async (newReport) => {
         const userId = localStorage.getItem("userId");
         const response = await reportService.CreateReport(newReport.name, newReport.description, userId);
-        if (response.code === "ERR_BAD_REQUEST") {
-            await UpdateTokens(setIsAuth, navigate, handleSubmit, reportService)
-        } else {
+        await CheckIsError(response, setIsAuth, navigate, createReport, () => {
             modal.resolve(response.data.data);
-            await modal.hide();
-        }
+            modal.hide();
+        }, reportService, newReport)
     })
 
     useEffect(() => {

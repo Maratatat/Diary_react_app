@@ -19,13 +19,23 @@ const AuthorizationForm = () => {
         if (isRegister) {
             const registerResponse = await AuthService.Register(authData.login, authData.password, authData.passwordConfirm);
             if (axios.isAxiosError(registerResponse)) {
-                setRegisterSpanErrorMessage(registerResponse.response.data.errorMessage || registerResponse.message)
+                if (registerResponse.response) {
+                    setRegisterSpanErrorMessage(registerResponse.response.data.errorMessage)
+                } else {
+                    setRegisterSpanErrorMessage(registerResponse.message)
+                }
                 return
             }
         }
         const loginResponse = await AuthService.Login(authData.login, authData.password);
+        console.log(loginResponse);
         if (axios.isAxiosError(loginResponse)) {
-            setLoginSpanErrorMessage(loginResponse.response.data.errorMessage || loginResponse.message)
+            if (loginResponse.response) {
+                setLoginSpanErrorMessage(loginResponse.response.data.errorMessage)
+            } else {
+                setLoginSpanErrorMessage(loginResponse.message)
+            }
+           
             return
         }
         setIsAuth(true)
@@ -92,7 +102,7 @@ const AuthorizationForm = () => {
                         <div className="overlay-panel overlay-right">
                             <h1>Hello, Friend!</h1>
                             <p>Enter your personal details and start journey with us</p>
-                            <button className="ghost" id="signUp" onClick={(event) => {
+                            <button className="ghost" id="signUp" onClick={() => {
                                 setRightPanelActive(true);
                                 setCurrentInputsValues(registrationFormRef)
                             }}>Sign Up

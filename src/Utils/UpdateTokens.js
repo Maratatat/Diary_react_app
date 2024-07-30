@@ -1,4 +1,4 @@
-import {TokenService} from "./TokenService";
+import {TokenService} from "../API/TokenService";
 import axios from "axios";
 
 export const UpdateTokens = async (setIsAuth, navigate, callback, service, ...args) => {

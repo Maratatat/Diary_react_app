@@ -11,13 +11,11 @@ const EditReportComponent = ({
                                  setName,
                                  setDescription,
                                  updateReport,
-                                 isReportLoading,
-                                 reportError
+                                 isReportLoading
                              }) => {
     return (
         <div style={{padding: '40px 20px'}}>
             {isReportLoading && <Loader/>}
-            {reportError && <h2 style={{textAlign: 'center'}}>An error occurred: {reportError}</h2>}
             <div className={classes.main_div}>
                 <h1 style={{textAlign: "center"}}>Edit Report</h1>
                 <EditReport name={name} description={description} setName={setName} setDescription={setDescription}

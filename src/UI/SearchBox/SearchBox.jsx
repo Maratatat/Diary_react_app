@@ -10,7 +10,7 @@ const SearchBox = ({query, setQuery}) => {
                 <div className={"search-icon " + (isSearching && 'si-rotate')}>
                     <i className={"fa fa-search search-icon " + (isSearching && 'si-rotate')}></i>
                 </div>
-                <form className="search-form">
+                <form className="search-form" onSubmit={(e) => e.preventDefault()}>
                     <input type="text" placeholder="Search" id="search" autoComplete="off" value={query}
                            onChange={(e) => setQuery(e.target.value)}
                            onFocus={() => setIsSearching(true)} onBlur={() => setIsSearching(false)}/>
