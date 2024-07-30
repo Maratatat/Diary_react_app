@@ -1,9 +1,9 @@
 import React from 'react';
 import './CreateButton.css'
 
-const CreateButton = () => {
+const CreateButton = ({createReport}) => {
     return (
-        <button className="button-84" role="button">Create report</button>
+        <button onClick={createReport} className="button-84">Create report</button>
     );
 };
 
