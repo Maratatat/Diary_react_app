@@ -50,8 +50,8 @@ const Reports = () => {
         fetchReports(pageNumber, pageSize)
     }, [pageNumber, pageSize])
 
-    useObserver(lastElement, pageNumber < Math.ceil(totalPages / pageSize), isReportsLoading, () => setPageNumber(pageNumber + 1))
-    
+    useObserver(lastElement, (pageNumber < Math.ceil(totalPages / pageSize)) && (pageSize !== 0 && pageNumber !== 0), isReportsLoading, () => setPageNumber(pageNumber + 1))
+
     const deleteReport = async (id) => {
         const response = await reportService.DeleteReport(id);
         await CheckIsError(response, setIsAuth, navigate, deleteReport, () => setReports(reports.filter(report => report.id !== id)), reportService, id)
@@ -62,7 +62,7 @@ const Reports = () => {
 
     //Modal
     const handleNewReport = useCallback(() => {
-        reportModal.show().then( (newReport) => {
+        reportModal.show().then((newReport) => {
             setReports([newReport, ...reports]);
         });
     }, [reportModal, reports]);
@@ -75,7 +75,8 @@ const Reports = () => {
             {reportsError && <h2 style={{textAlign: 'center'}}>An error occurred: {reportsError}</h2>}
             <ReportsWithSearchAndCreate reports={searchedReports} query={query}
                                         setQuery={setQuery} reportService={reportService} deleteReport={deleteReport}
-                                        editReport={editReport} createReport={handleNewReport}/>
+                                        editReport={editReport} createReport={handleNewReport}
+                                        loadAllReports={() => setPageSize(0)}/>
             <div ref={lastElement} style={{height: '20px'}}></div>
             {isReportsLoading &&
                 <Loader/>}
