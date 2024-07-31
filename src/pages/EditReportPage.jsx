@@ -18,17 +18,17 @@ const EditReportPage = () => {
             setDateLastEdited(response.data.data.dateLastEdited)
         }, reportService)
     })
-    const [name, setName] = useState("")
-    const [description, setDescription] = useState("")
-    const [dateLastEdited, setDateLastEdited] = useState("")
-
-    const updateReport = async (name, description) => {
+    const [updateReport, isReportUpdating] = useFetching(async () => {
         const response = await reportService.UpdateReport(params.id, name, description)
         await CheckIsError(response, setIsAuth, navigate, updateReport, () => {
             alert("Successfully updated report.")
             navigate("/reports")
         }, name, description)
-    }
+    })
+    const [name, setName] = useState("")
+    const [description, setDescription] = useState("")
+    const [dateLastEdited, setDateLastEdited] = useState("")
+
 
     useEffect(() => {
         fetchReport()
@@ -44,7 +44,7 @@ const EditReportPage = () => {
     return (
         <EditReportComponent name={name} description={description} setName={setName} setDescription={setDescription}
                              dateLastEdited={dateLastEdited} updateReport={updateReport}
-                             isReportLoading={isReportLoading}/>
+                             isReportLoading={isReportLoading} isReportUpdating={isReportUpdating}/>
     );
 };
 
