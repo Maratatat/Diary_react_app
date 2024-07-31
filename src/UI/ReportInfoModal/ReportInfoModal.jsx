@@ -7,7 +7,6 @@ import {useFetching} from "../../Hooks/useFetching";
 import {useNavigate} from "react-router-dom";
 import {CheckIsError} from "../../Utils/CheckIsError";
 
-
 export default NiceModal.create(() => {
     const reportService = useContext(ReportServiceContext)
     const navigate=useNavigate();
@@ -16,8 +15,16 @@ export default NiceModal.create(() => {
     const [form] = Form.useForm();
     const meta = {
         fields: [
-            {key: 'name', label: "Report's name", required: true},
-            {key: 'description', label: "Report's description", required: true},
+            {
+                key: 'name', label: "Report's name", required: true, widget: 'textarea', widgetProps: {
+                    style: {height: '55px'}
+                }
+            },
+            {
+                key: 'description', label: "Report's description", required: true, widget: 'textarea', widgetProps: {
+                    style: {height: '250px'}
+                }
+            },
         ],
     };
     const [createReport, isReportCreating, createError] = useFetching(async (newReport) => {
@@ -51,6 +58,7 @@ export default NiceModal.create(() => {
             okText={'Create'}
             onOk={handleSubmit}
             confirmLoading={isReportCreating}
+            width={'50%'}
         >
             <Form form={form}>
                 <FormBuilder meta={meta} form={form}/>
