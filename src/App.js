@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {BrowserRouter} from "react-router-dom";
-import {useEffect, useState} from "react";
 import AppRouter from "./Components/AppRouter";
 import {AuthContext, ReportServiceContext} from "./context";
 import {ReportService} from "./API/ReportService";
 import NiceModal from '@ebay/nice-modal-react';
+import Navbar from "./Navbar/Navbar";
 
 function App() {
     const [isAuth, setIsAuth] = useState(false);
@@ -22,6 +22,7 @@ function App() {
             <ReportServiceContext.Provider value={reportService}>
                 <AuthContext.Provider value={{isAuth, setIsAuth}}>
                     <NiceModal.Provider>
+                        <Navbar/>
                         <AppRouter/>
                     </NiceModal.Provider>
                 </AuthContext.Provider>
